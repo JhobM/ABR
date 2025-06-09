@@ -3,6 +3,6 @@ using namespace std;
 
 int main()
 {
-	ssadasdsadsadassadssadasd
+	fgerfe
 wefew
 }
