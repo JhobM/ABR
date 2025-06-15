@@ -20,9 +20,14 @@ nodo *insertar(nodo* raiz, int valor){
 		return nuevonodo (valor);
 	}
         if(valor < raiz->dato){
-		raiz->izq = insertar
-	}   
-
+		raiz->izq = insertar(raiz->izq, valor);
+	}   else if (valor > raiz->dato) {
+		raiz->der = insertar(raiz->der, valor);
+	}   else{
+		cout<< "El valor ya existe y no puede estar duplicado.. \n";
+	}
+	return raiz;
+}
 nodo* encontrarMaximo(nodo* raiz)
 {
 	while(raiz->der != NULL)
