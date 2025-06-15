@@ -67,4 +67,11 @@ int main()
 {
 	nodo *raiz=NULL;
 	int n, valor;
+	cout<<"¿Cuantos valores desea insertaar?: ";
+	cin>>n;
+
+	for(int i=0;i<n;i++)
+		{
+			cout<<"Ingrese valor: ";
+			cin>>valor
 }
