@@ -1,6 +1,11 @@
 #include<iostream>
 using namespace std;
-#define MAX 5
+
+struct nodo {
+   int dato;
+   nodo *izq;
+   nodo *der;
+};
 
 
 int main()
