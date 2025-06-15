@@ -22,6 +22,12 @@ nodo *insertar(nodo* raiz, int valor){
         if(valor < raiz->dato){
 		raiz->izq = insertar
 	}   
+
+nodo* encontrarMaximo(nodo* raiz)
+{
+	
+}
+
 int main()
 {
 	
