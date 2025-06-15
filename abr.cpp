@@ -37,17 +37,25 @@ int segundoMayor(nodo* raiz)
 	if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
 	{
 		cout<<"No existe un segundo elemento mayor \n";
-		return -1;
+		return NULL;
 	}
 
 	nodo* actual=raiz;
 	nodo* padre=NULL;
 
-	while(actual->der != NULL)
+	while(actual->der!= NULL)
 	{
 		padre = actual;
 		actual=actual->der;
 	}
+
+	if (actual->izq!= NULL) 
+	{
+		nodo* temp =encontrarMaximo(actual->izq);
+		return temp->dato;
+	}
+
+	return padre->dato;
 }
 
 int main()
