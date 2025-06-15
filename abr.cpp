@@ -65,5 +65,6 @@ int segundoMayor(nodo* raiz)
 
 int main()
 {
-	
+	nodo *raiz=NULL;
+	int n, valor;
 }
