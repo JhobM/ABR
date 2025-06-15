@@ -32,6 +32,17 @@ nodo* encontrarMaximo(nodo* raiz)
 	return raiz;
 }
 
+int segundoMayor(nodo* raiz)
+{
+	if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
+	{
+		cout<<"No existe un segundo elemento mayor \n";
+		return -1;
+	}
+
+	nodo
+}
+
 int main()
 {
 	
