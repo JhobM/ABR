@@ -40,7 +40,14 @@ int segundoMayor(nodo* raiz)
 		return -1;
 	}
 
-	nodo
+	nodo* actual=raiz;
+	nodo* padre=NULL;
+
+	while(actual->der != NULL)
+	{
+		padre = actual;
+		actual=actual->der;
+	}
 }
 
 int main()
