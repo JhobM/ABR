@@ -73,5 +73,13 @@ int main()
 	for(int i=0;i<n;i++)
 		{
 			cout<<"Ingrese valor: ";
-			cin>>valor
+			cin>>valor;
+			raiz=insertar(raiz,valor);
+		}
+	int resultado = segundoMayor(raiz);
+	if(resultado!=1)
+	{
+		cout<<"El segundo elemento mas grande es: "<<resultado<<endl;
+	}
+	return 0;
 }
