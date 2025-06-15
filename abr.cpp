@@ -25,7 +25,11 @@ nodo *insertar(nodo* raiz, int valor){
 
 nodo* encontrarMaximo(nodo* raiz)
 {
-	
+	while(raiz->der != NULL)
+	{
+		raiz=raiz->der;
+	}
+	return raiz;
 }
 
 int main()
