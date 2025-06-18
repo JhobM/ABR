@@ -17,7 +17,7 @@ nodo* crearNodo(string nombre, int puntuacion) {
         return nuevo;
 }
 
-nodo *insertar(nodo* raiz, int valor){
+nodo *insertar(nodo* raiz, string nombre, int puntuacion){
 	if(raiz == NULL){
 		return nuevonodo (valor);
 	}
