@@ -19,14 +19,14 @@ nodo* crearNodo(string nombre, int puntuacion) {
 
 nodo *insertar(nodo* raiz, string nombre, int puntuacion){
 	if(raiz == NULL){
-		return nuevonodo (valor);
+		return crearNodo(nombre, puntuacion);
 	}
-        if(valor < raiz->dato){
-		raiz->izq = insertar(raiz->izq, valor);
-	}   else if (valor > raiz->dato) {
-		raiz->der = insertar(raiz->der, valor);
+        if(puntuacion > raiz->puntuacion){
+		raiz->der = insertar(raiz->der, nombre, puntuacion);
+	}   else if (puntuacion < raiz->puntuacion) {
+		raiz->izq = insertar(raiz->izq, nombre, puntuacion);
 	}   else{
-		cout<< "El valor ya existe y no puede estar duplicado.. \n";
+		raiz->puntuacion = puntuacion;
 	}
 	return raiz;
 }
