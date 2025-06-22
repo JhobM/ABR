@@ -52,13 +52,13 @@ Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
     return raiz;
 }
 
-nodo* encontrarMaximo(nodo* raiz)
+Nodo* encontrarMaximo(Nodo* raiz)
 {
-	while(raiz->der != NULL)
-	{
-		raiz=raiz->der;
-	}
-	return raiz;
+    while(raiz->der!=NULL)
+    {
+        raiz=raiz->der;
+    }
+    return raiz;
 }
 
 int segundoMayor(nodo* raiz)
