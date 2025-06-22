@@ -8,9 +8,10 @@ struct ListaNombre {
 };
 
 struct Nodo{
-        
-
-
+        int puntuacion;
+        ListaNombre* lista;
+        Nodo* izq;
+        Nodo* der;
 };
 
 nodo* crearNodo(string nombre, int puntuacion) {
