@@ -13,12 +13,27 @@ struct Nodo{
         Nodo* izq;
         Nodo* der;
 };
+void insertarNombre(ListaNombre*& lista, string nombre){
+	ListaNombre* actual = lista;
+	while(actual !=NULL){
+		if(actual->nombre == nombre){
+			return;
+		}
+		actual = actual->sig;
+	}
 
-nodo* crearNodo(string nombre, int puntuacion) {
+	ListaNombre* nuevo = new ListaNombre();
+	nuevo->nombre = nombre;
+	nuevo->sig = lista;
+	lista = nuevo;
+}
+
+Nodo* crearNodo(string nombre, int puntuacion) {
         Nodo* nuevo = new Nodo();
-        nuevo->nombre = nombre;
         nuevo->puntuacion = puntuacion;
+        nuevo->lista = NULL;
         nuevo->izq = nuevo->der = NULL;
+	insertarNombre(nuevo->lista, nombre);
         return nuevo;
 }
 
@@ -31,7 +46,7 @@ nodo *insertar(nodo* raiz, string nombre, int puntuacion){
 	}   else if (puntuacion < raiz->puntuacion) {
 		raiz->izq = insertar(raiz->izq, nombre, puntuacion);
 	}   else{
-		raiz->puntuacion = puntuacion;
+		insertarNombre(raiz->lista, nombre);
 	}
 	return raiz;
 }
