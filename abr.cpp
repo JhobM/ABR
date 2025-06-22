@@ -87,67 +87,21 @@ cout<< contador + 1 << ".";
 		actual=actual->sig;
 	}
 }
-Nodo* encontrarMaximo(Nodo* raiz)
-{
-    while(raiz->der!=NULL)
-    {
-        raiz=raiz->der;
-    }
-    return raiz;
-}
 
-Nodo* segundoMayor(Nodo* raiz)
-{
-    if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
-    {
-        cout<<"No existe un segundo elemento mayor.\n";
-        return NULL;
-    }
-
-    Nodo* actual=raiz;
-    Nodo* padre=NULL;
-
-    while(actual->der!=NULL)
-    {
-        padre=actual;
-        actual=actual->der;
-    }
-
-    if(actual->izq!=NULL)
-    {
-        return encontrarMaximo(actual->izq);
-    }
-
-    return padre;
+cout<<" - "<<raiz->puntuacion<<endl;
+contador++;
 }
 
 int main()
 {
-	nodo *raiz=NULL;
-	int n, puntuacion;
+	Nodo *raiz= nullptr;
+	int opcion, N;
 	string nombre;
-	cout<<"¿Cuantos jugadores desea insertar?: ";
-	cin>>n;
+	int puntuacion;
 
-	for(int i=0;i<n;i++)
+	do
 		{
-			cout<<"Nombre del jugador: ";
-			cin>>nombre;
-			cout<<"Puntuación: ";
-			cin>>puntuacion;
-			raiz=insertar(raiz,nombre,puntuacion);
+			cout << "\nSISTEMA DE RANKING - MENU\n";
 		}
-	nodo *segundo=segundoMayor(raiz);
-	if(segundo!=NULL)
-	{
-		cout<<"Segundo jugador con mayor puntuación: \n";
 
-		ListaNombre* actual=segundo->lista;
-		whiile(actual!=NULL)
-			{
-			cout<<"-"<<actual->nombre<<" con "<<segundo->puntuacion<<"\n";
-			actual=actual->sig;
-		}
-	}
-	return 0;
 }
