@@ -106,10 +106,13 @@ int main()
 	if(segundo!=NULL)
 	{
 		cout<<"Segundo jugador con mayor puntuación: \n";
-	int resultado = segundoMayor(raiz);
-	if(resultado!=1)
-	{
-		cout<<"El segundo elemento mas grande es: "<<resultado<<endl;
+
+		ListaNombre* actual=segundo->lista;
+		whiile(actual!=NULL)
+			{
+			cout<<"-"<<actual->nombre<<" con "<<segundo->puntuacion<<"\n";
+			actual=actual->sig;
+		}
 	}
 	return 0;
 }
