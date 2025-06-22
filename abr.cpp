@@ -2,11 +2,15 @@
 #include<string>
 using namespace std;
 
-struct Nodo {
+struct ListaNombre {
 	string nombre;
-        int puntuacion;
-	nodo* izq;
-	nodo* der;
+        ListaNombre* sig;
+};
+
+struct Nodo{
+        
+
+
 };
 
 nodo* crearNodo(string nombre, int puntuacion) {
