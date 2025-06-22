@@ -74,6 +74,19 @@ void mostrarTopN(Nodo* raiz,int& contador, intN)
 {
 if(raiz==nullptr || contador >=N) return;
 
+mostrarTopN(raiz->deer, contador, N);
+if(contador<N)
+{
+cout<< contador + 1 << ".";
+	ListaNombre* actual = raiz->lista;
+	while(actual!=nullptr)
+	{
+		cout<<actua->nombre;
+		if(actual->sig !=nullptr)
+			cout<<",";
+		actual=actual->sig;
+	}
+}
 Nodo* encontrarMaximo(Nodo* raiz)
 {
     while(raiz->der!=NULL)
