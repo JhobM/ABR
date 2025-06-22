@@ -70,6 +70,9 @@ int buscar(Nodo* raiz, string nombre){
 	return buscar(raiz->der, nombre);
 }
 
+void mostrarTopN(Nodo* raiz,int& contador, intN)
+{
+if(raiz==nullptr || contador >=N) return;
 
 Nodo* encontrarMaximo(Nodo* raiz)
 {
