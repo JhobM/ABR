@@ -37,19 +37,21 @@ Nodo* crearNodo(string nombre, int puntuacion) {
         return nuevo;
 }
 
-nodo *insertar(nodo* raiz, string nombre, int puntuacion){
-	if(raiz == NULL){
-		return crearNodo(nombre, puntuacion);
-	}
-        if(puntuacion > raiz->puntuacion){
-		raiz->der = insertar(raiz->der, nombre, puntuacion);
-	}   else if (puntuacion < raiz->puntuacion) {
-		raiz->izq = insertar(raiz->izq, nombre, puntuacion);
-	}   else{
-		insertarNombre(raiz->lista, nombre);
-	}
-	return raiz;
+Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
+{
+    if(raiz==NULL)
+        return crearNodo(nombre, puntuacion);
+
+    if(puntuacion>raiz->puntuacion)
+        raiz->der=insertar(raiz->der, nombre, puntuacion);
+    else if(puntuacion<raiz->puntuacion)
+        raiz->izq=insertar(raiz->izq, nombre, puntuacion);
+    else
+        insertarNombre(raiz->lista, nombre);
+
+    return raiz;
 }
+
 nodo* encontrarMaximo(nodo* raiz)
 {
 	while(raiz->der != NULL)
