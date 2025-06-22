@@ -52,6 +52,25 @@ Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
     return raiz;
 }
 
+int buscar(Nodo* raiz, string nombre){
+	if (raiz == NULL){
+		return -1;
+	}
+	ListaNombre* actual = raiz->lista;
+	while (actual != NULL){
+		if(actual->nombre == nombre){
+			return raiz->puntuacion;
+		}
+		actual = actual->sig;
+	}
+	int izq = buscar(raiz->izq, nombre);
+	if(izq != -1){
+		return izq;
+	}
+	return buscar(raiz->der, nombre);
+}
+
+
 Nodo* encontrarMaximo(Nodo* raiz)
 {
     while(raiz->der!=NULL)
