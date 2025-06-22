@@ -91,15 +91,21 @@ int main()
 	nodo *raiz=NULL;
 	int n, puntuacion;
 	string nombre;
-	cout<<"¿Cuantos valores desea insertaar?: ";
+	cout<<"¿Cuantos jugadores desea insertar?: ";
 	cin>>n;
 
 	for(int i=0;i<n;i++)
 		{
-			cout<<"Ingrese valor: ";
-			cin>>valor;
-			raiz=insertar(raiz,valor);
+			cout<<"Nombre del jugador: ";
+			cin>>nombre;
+			cout<<"Puntuación: ";
+			cin>>puntuacion;
+			raiz=insertar(raiz,nombre,puntuacion);
 		}
+	nodo *segundo=segundoMayor(raiz);
+	if(segundo!=NULL)
+	{
+		cout<<"Segundo jugador con mayor puntuación: \n";
 	int resultado = segundoMayor(raiz);
 	if(resultado!=1)
 	{
