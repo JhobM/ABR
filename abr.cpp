@@ -89,7 +89,8 @@ Nodo* segundoMayor(Nodo* raiz)
 int main()
 {
 	nodo *raiz=NULL;
-	int n, valor;
+	int n, puntuacion;
+	string nombre;
 	cout<<"¿Cuantos valores desea insertaar?: ";
 	cin>>n;
 
