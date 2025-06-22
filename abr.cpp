@@ -61,30 +61,29 @@ Nodo* encontrarMaximo(Nodo* raiz)
     return raiz;
 }
 
-int segundoMayor(nodo* raiz)
+Nodo* segundoMayor(Nodo* raiz)
 {
-	if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
-	{
-		cout<<"No existe un segundo elemento mayor \n";
-		return NULL;
-	}
+    if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
+    {
+        cout<<"No existe un segundo elemento mayor.\n";
+        return NULL;
+    }
 
-	nodo* actual=raiz;
-	nodo* padre=NULL;
+    Nodo* actual=raiz;
+    Nodo* padre=NULL;
 
-	while(actual->der!= NULL)
-	{
-		padre = actual;
-		actual=actual->der;
-	}
+    while(actual->der!=NULL)
+    {
+        padre=actual;
+        actual=actual->der;
+    }
 
-	if (actual->izq!= NULL) 
-	{
-		nodo* temp =encontrarMaximo(actual->izq);
-		return temp->dato;
-	}
+    if(actual->izq!=NULL)
+    {
+        return encontrarMaximo(actual->izq);
+    }
 
-	return padre->dato;
+    return padre;
 }
 
 int main()
