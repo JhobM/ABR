@@ -1,21 +1,21 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
+//Estructura para la lista enlazada de nombres asociados a un puntaje
 struct ListaNombre
 {
     string nombre;
-    ListaNombre* sig;
+    ListaNombre* sig; //Siguiente jugador en la lista
 };
-
+//Estructura del nodo del árbol binario
 struct Nodo
 {
-    int puntuacion;
-    ListaNombre* lista;
-    Nodo* izq;
-    Nodo* der;
+    int puntuacion;            //Puntaje
+    ListaNombre* lista;        //Lista de jugadores con ese puntaje
+    Nodo* izq;                 //Subárbol izquierdo (menor puntuación)
+    Nodo* der;                 //Subárbol derecho (mayor puntuación)
 };
-
+//Inserta un nombre en la lista si no está repetido
 void insertarNombre(ListaNombre*& lista, string nombre)
 {
     ListaNombre* actual=lista;
@@ -23,27 +23,28 @@ void insertarNombre(ListaNombre*& lista, string nombre)
     {
         if(actual->nombre==nombre)
         {
-            return;
+            return; //Ya está en la lista
         }
         actual=actual->sig;
     }
-
+    //Insertar al inicio
     ListaNombre* nuevo=new ListaNombre();
     nuevo->nombre=nombre;
     nuevo->sig=lista;
     lista=nuevo;
 }
-
+//Crea un nuevo nodo con la puntuación y el nombre
 Nodo* crearNodo(string nombre, int puntuacion)
 {
     Nodo* nuevo=new Nodo();
     nuevo->puntuacion=puntuacion;
     nuevo->lista=NULL;
     nuevo->izq=nuevo->der=NULL;
-    insertarNombre(nuevo->lista, nombre);
+    insertarNombre(nuevo->lista, nombre); //Insertar nombre en su lista
     return nuevo;
 }
 
+//Inserta un jugador en el árbol
 Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
 {
     if(raiz==NULL)
@@ -66,14 +67,13 @@ Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
 
     return raiz;
 }
-
+//Busca un jugador por nombre y devuelve su puntuación
 int buscar(Nodo* raiz, string nombre)
 {
     if(raiz==NULL)
     {
-        return -1;
+        return -1; //No encontrado
     }
-
     ListaNombre* actual=raiz->lista;
     while(actual!=NULL)
     {
@@ -83,29 +83,25 @@ int buscar(Nodo* raiz, string nombre)
         }
         actual=actual->sig;
     }
-
     int izq=buscar(raiz->izq, nombre);
     if(izq!=-1)
     {
         return izq;
     }
-
     return buscar(raiz->der, nombre);
 }
 
+//Muestra los N primeros jugadores con mayor puntuación
 void mostrarTopN(Nodo* raiz, int& contador, int N)
 {
     if(raiz==NULL || contador>=N)
     {
         return;
     }
-
-    mostrarTopN(raiz->der, contador, N);
-
+    mostrarTopN(raiz->der, contador, N); //Recorrido inorden invertido
     if(contador<N)
     {
         cout<<contador+1<<". ";
-
         ListaNombre* actual=raiz->lista;
         while(actual!=NULL)
         {
@@ -116,14 +112,13 @@ void mostrarTopN(Nodo* raiz, int& contador, int N)
             }
             actual=actual->sig;
         }
-
         cout<<" - "<<raiz->puntuacion<<"\n";
         contador++;
     }
-
     mostrarTopN(raiz->izq, contador, N);
 }
 
+//Encuentra el nodo con la mayor puntuación
 Nodo* encontrarMaximo(Nodo* raiz)
 {
     while(raiz->der!=NULL)
@@ -133,11 +128,12 @@ Nodo* encontrarMaximo(Nodo* raiz)
     return raiz;
 }
 
+//Encuentra el nodo con la segunda mayor puntuación
 Nodo* encontrarSegundoMayor(Nodo* raiz)
 {
     if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
     {
-        return NULL;
+        return NULL; //No hay suficientes jugadores
     }
 
     Nodo* actual=raiz;
@@ -157,6 +153,7 @@ Nodo* encontrarSegundoMayor(Nodo* raiz)
     return padre;
 }
 
+// Muestra el segundo jugador con mayor puntuación (pueden ser varios con mismo puntaje)
 void mostrarSegundoMayor(Nodo* raiz)
 {
     Nodo* segundo=encontrarSegundoMayor(raiz);
@@ -181,13 +178,13 @@ void mostrarSegundoMayor(Nodo* raiz)
     }
 }
 
+// Función principal
 int main()
 {
     Nodo* raiz=NULL;
     int opcion, N;
     string nombre;
     int puntuacion;
-
     do
     {
         cout<<"\nSISTEMA DE RANKING - MENU\n";
@@ -196,19 +193,16 @@ int main()
         cout<<"3. Mostrar top N jugadores\n";
         cout<<"4. Mostrar segundo jugador con mayor puntuación\n";
         cout<<"5. Salir\n";
-
+        // Validar opción
         do
         {
             cout<<"Seleccione una opcion: ";
             cin>>opcion;
-
             if(opcion<1 || opcion>5)
             {
                 cout<<"Opcion invalida...\n";
             }
-
         } while(opcion<1 || opcion>5);
-
         switch(opcion)
         {
             case 1:
@@ -218,7 +212,6 @@ int main()
                 cin>>puntuacion;
                 raiz=insertar(raiz, nombre, puntuacion);
                 break;
-
             case 2:
                 cout<<"Nombre del jugador a buscar: ";
                 cin>>nombre;
@@ -232,7 +225,6 @@ int main()
                     cout<<"Jugador no encontrado.\n";
                 }
                 break;
-
             case 3:
                 cout<<"¿Cuántos jugadores mostrar?: ";
                 cin>>N;
@@ -241,17 +233,13 @@ int main()
                     mostrarTopN(raiz, contador, N);
                 }
                 break;
-
             case 4:
                 mostrarSegundoMayor(raiz);
                 break;
-
             case 5:
                 cout<<"Saliendo...\n";
                 break;
         }
-
     } while(opcion!=5);
-
     return 0;
 }
