@@ -2,37 +2,42 @@
 #include<string>
 using namespace std;
 
-struct ListaNombre {
+struct ListaNombre 
+{
 	string nombre;
         ListaNombre* sig;
 };
 
-struct Nodo{
+struct Nodo
+{
         int puntuacion;
         ListaNombre* lista;
         Nodo* izq;
         Nodo* der;
 };
-void insertarNombre(ListaNombre*& lista, string nombre){
-	ListaNombre* actual = lista;
+void insertarNombre(ListaNombre*& lista, string nombre)
+{
+	ListaNombre* actual=lista;
 	while(actual !=NULL){
-		if(actual->nombre == nombre){
+		if(actual->nombre == nombre)
+		{
 			return;
 		}
 		actual = actual->sig;
 	}
 
-	ListaNombre* nuevo = new ListaNombre();
-	nuevo->nombre = nombre;
-	nuevo->sig = lista;
-	lista = nuevo;
+	ListaNombre* nuevo =new ListaNombre();
+	nuevo->nombre=nombre;
+	nuevo->sig =lista;
+	lista =nuevo;
 }
 
-Nodo* crearNodo(string nombre, int puntuacion) {
-        Nodo* nuevo = new Nodo();
-        nuevo->puntuacion = puntuacion;
-        nuevo->lista = NULL;
-        nuevo->izq = nuevo->der = NULL;
+Nodo* crearNodo(string nombre, int puntuacion) 
+{
+        Nodo* nuevo =new Nodo();
+        nuevo->puntuacion =puntuacion;
+        nuevo->lista =NULL;
+        nuevo->izq =nuevo->der =NULL;
 	insertarNombre(nuevo->lista, nombre);
         return nuevo;
 }
@@ -52,44 +57,50 @@ Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
     return raiz;
 }
 
-int buscar(Nodo* raiz, string nombre){
-	if (raiz == NULL){
+int buscar(Nodo* raiz, string nombre)
+{
+	if (raiz == NULL)
+	{
 		return -1;
 	}
-	ListaNombre* actual = raiz->lista;
-	while (actual != NULL){
-		if(actual->nombre == nombre){
+	ListaNombre* actual =raiz->lista;
+	while (actual !=NULL)
+	{		
+		if(actual->nombre ==nombre)
+		{
 			return raiz->puntuacion;
 		}
-		actual = actual->sig;
+		actual =actual->sig;
 	}
-	int izq = buscar(raiz->izq, nombre);
-	if(izq != -1){
+	int izq =buscar(raiz->izq, nombre);
+	if(izq !=-1)
+	{
 		return izq;
 	}
 	return buscar(raiz->der, nombre);
 }
 
-void mostrarTopN(Nodo* raiz,int& contador, intN)
+void mostrarTopN(Nodo* raiz, int& contador, int N) 
 {
-if(raiz==nullptr || contador >=N) return;
+    if (raiz == nullptr || contador >= N) return;
 
-mostrarTopN(raiz->deer, contador, N);
-if(contador<N)
-{
-cout<< contador + 1 << ".";
-	ListaNombre* actual = raiz->lista;
-	while(actual!=nullptr)
+    mostrarTopN(raiz->der, contador, N);
+
+    if (contador < N) 
+    {
+        cout << contador + 1 << ". ";
+        ListaNombre* actual = raiz->lista;
+        while (actual != nullptr) 
 	{
-		cout<<actua->nombre;
-		if(actual->sig !=nullptr)
-			cout<<",";
-		actual=actual->sig;
-	}
-}
-
-cout<<" - "<<raiz->puntuacion<<endl;
-contador++;
+            cout << actual->nombre;
+            if (actual->sig != nullptr)
+                cout << ", ";
+            actual = actual->sig;
+        }
+        cout << " - " << raiz->puntuacion << endl;
+        contador++;
+    }
+    mostrarTopN(raiz->izq, contador, N);
 }
 
 int main()
