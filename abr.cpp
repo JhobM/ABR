@@ -1,126 +1,257 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
-struct ListaNombre 
+struct ListaNombre
 {
-	string nombre;
-        ListaNombre* sig;
+    string nombre;
+    ListaNombre* sig;
 };
 
 struct Nodo
 {
-        int puntuacion;
-        ListaNombre* lista;
-        Nodo* izq;
-        Nodo* der;
+    int puntuacion;
+    ListaNombre* lista;
+    Nodo* izq;
+    Nodo* der;
 };
+
 void insertarNombre(ListaNombre*& lista, string nombre)
 {
-	ListaNombre* actual=lista;
-	while(actual !=NULL){
-		if(actual->nombre == nombre)
-		{
-			return;
-		}
-		actual = actual->sig;
-	}
+    ListaNombre* actual=lista;
+    while(actual!=NULL)
+    {
+        if(actual->nombre==nombre)
+        {
+            return;
+        }
+        actual=actual->sig;
+    }
 
-	ListaNombre* nuevo =new ListaNombre();
-	nuevo->nombre=nombre;
-	nuevo->sig =lista;
-	lista =nuevo;
+    ListaNombre* nuevo=new ListaNombre();
+    nuevo->nombre=nombre;
+    nuevo->sig=lista;
+    lista=nuevo;
 }
 
-Nodo* crearNodo(string nombre, int puntuacion) 
+Nodo* crearNodo(string nombre, int puntuacion)
 {
-        Nodo* nuevo =new Nodo();
-        nuevo->puntuacion =puntuacion;
-        nuevo->lista =NULL;
-        nuevo->izq =nuevo->der =NULL;
-	insertarNombre(nuevo->lista, nombre);
-        return nuevo;
+    Nodo* nuevo=new Nodo();
+    nuevo->puntuacion=puntuacion;
+    nuevo->lista=NULL;
+    nuevo->izq=nuevo->der=NULL;
+    insertarNombre(nuevo->lista, nombre);
+    return nuevo;
 }
 
 Nodo* insertar(Nodo* raiz, string nombre, int puntuacion)
 {
     if(raiz==NULL)
+    {
         return crearNodo(nombre, puntuacion);
+    }
 
     if(puntuacion>raiz->puntuacion)
+    {
         raiz->der=insertar(raiz->der, nombre, puntuacion);
+    }
     else if(puntuacion<raiz->puntuacion)
+    {
         raiz->izq=insertar(raiz->izq, nombre, puntuacion);
+    }
     else
+    {
         insertarNombre(raiz->lista, nombre);
+    }
 
     return raiz;
 }
 
 int buscar(Nodo* raiz, string nombre)
 {
-	if (raiz == NULL)
-	{
-		return -1;
-	}
-	ListaNombre* actual =raiz->lista;
-	while (actual !=NULL)
-	{		
-		if(actual->nombre ==nombre)
-		{
-			return raiz->puntuacion;
-		}
-		actual =actual->sig;
-	}
-	int izq =buscar(raiz->izq, nombre);
-	if(izq !=-1)
-	{
-		return izq;
-	}
-	return buscar(raiz->der, nombre);
+    if(raiz==NULL)
+    {
+        return -1;
+    }
+
+    ListaNombre* actual=raiz->lista;
+    while(actual!=NULL)
+    {
+        if(actual->nombre==nombre)
+        {
+            return raiz->puntuacion;
+        }
+        actual=actual->sig;
+    }
+
+    int izq=buscar(raiz->izq, nombre);
+    if(izq!=-1)
+    {
+        return izq;
+    }
+
+    return buscar(raiz->der, nombre);
 }
 
-void mostrarTopN(Nodo* raiz, int& contador, int N) 
+void mostrarTopN(Nodo* raiz, int& contador, int N)
 {
-    if (raiz == nullptr || contador >= N) return;
+    if(raiz==NULL || contador>=N)
+    {
+        return;
+    }
 
     mostrarTopN(raiz->der, contador, N);
 
-    if (contador < N) 
+    if(contador<N)
     {
-        cout << contador + 1 << ". ";
-        ListaNombre* actual = raiz->lista;
-        while (actual != nullptr) 
-	{
-            cout << actual->nombre;
-            if (actual->sig != nullptr)
-                cout << ", ";
-            actual = actual->sig;
+        cout<<contador+1<<". ";
+
+        ListaNombre* actual=raiz->lista;
+        while(actual!=NULL)
+        {
+            cout<<actual->nombre;
+            if(actual->sig!=NULL)
+            {
+                cout<<", ";
+            }
+            actual=actual->sig;
         }
-        cout << " - " << raiz->puntuacion << endl;
+
+        cout<<" - "<<raiz->puntuacion<<"\n";
         contador++;
     }
+
     mostrarTopN(raiz->izq, contador, N);
+}
+
+Nodo* encontrarMaximo(Nodo* raiz)
+{
+    while(raiz->der!=NULL)
+    {
+        raiz=raiz->der;
+    }
+    return raiz;
+}
+
+Nodo* encontrarSegundoMayor(Nodo* raiz)
+{
+    if(raiz==NULL || (raiz->izq==NULL && raiz->der==NULL))
+    {
+        return NULL;
+    }
+
+    Nodo* actual=raiz;
+    Nodo* padre=NULL;
+
+    while(actual->der!=NULL)
+    {
+        padre=actual;
+        actual=actual->der;
+    }
+
+    if(actual->izq!=NULL)
+    {
+        return encontrarMaximo(actual->izq);
+    }
+
+    return padre;
+}
+
+void mostrarSegundoMayor(Nodo* raiz)
+{
+    Nodo* segundo=encontrarSegundoMayor(raiz);
+    if(segundo!=NULL)
+    {
+        cout<<"Segundo mayor puntaje: "<<segundo->puntuacion<<" - ";
+        ListaNombre* actual=segundo->lista;
+        while(actual!=NULL)
+        {
+            cout<<actual->nombre;
+            if(actual->sig!=NULL)
+            {
+                cout<<", ";
+            }
+            actual=actual->sig;
+        }
+        cout<<"\n";
+    }
+    else
+    {
+        cout<<"No hay suficientes jugadores para determinar el segundo mayor.\n";
+    }
 }
 
 int main()
 {
-	Nodo *raiz= nullptr;
-	int opcion, N;
-	string nombre;
-	int puntuacion;
+    Nodo* raiz=NULL;
+    int opcion, N;
+    string nombre;
+    int puntuacion;
 
-	do
-		{
-			cout << "\nSISTEMA DE RANKING - MENU\n";
-			cout << "1. Insertar/Actualizar jugador\n";
-			cout << "2. Buscar jugador\n";
-			cout << "3. Mostrar top N jugadores\n";
-			cout << "4. Salir\n";
-			cout << "Seleccione una opcion: ";
-			cin>>opcion;
+    do
+    {
+        cout<<"\nSISTEMA DE RANKING - MENU\n";
+        cout<<"1. Insertar/Actualizar jugador\n";
+        cout<<"2. Buscar jugador\n";
+        cout<<"3. Mostrar top N jugadores\n";
+        cout<<"4. Mostrar segundo jugador con mayor puntuación\n";
+        cout<<"5. Salir\n";
 
-			
-		}
+        do
+        {
+            cout<<"Seleccione una opcion: ";
+            cin>>opcion;
 
+            if(opcion<1 || opcion>5)
+            {
+                cout<<"Opcion invalida...\n";
+            }
+
+        } while(opcion<1 || opcion>5);
+
+        switch(opcion)
+        {
+            case 1:
+                cout<<"Nombre del jugador: ";
+                cin>>nombre;
+                cout<<"Puntuación: ";
+                cin>>puntuacion;
+                raiz=insertar(raiz, nombre, puntuacion);
+                break;
+
+            case 2:
+                cout<<"Nombre del jugador a buscar: ";
+                cin>>nombre;
+                puntuacion=buscar(raiz, nombre);
+                if(puntuacion!=-1)
+                {
+                    cout<<"Puntuación de "<<nombre<<": "<<puntuacion<<"\n";
+                }
+                else
+                {
+                    cout<<"Jugador no encontrado.\n";
+                }
+                break;
+
+            case 3:
+                cout<<"¿Cuántos jugadores mostrar?: ";
+                cin>>N;
+                {
+                    int contador=0;
+                    mostrarTopN(raiz, contador, N);
+                }
+                break;
+
+            case 4:
+                mostrarSegundoMayor(raiz);
+                break;
+
+            case 5:
+                cout<<"Saliendo...\n";
+                break;
+        }
+
+    } while(opcion!=5);
+
+    return 0;
 }
