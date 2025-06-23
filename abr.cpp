@@ -102,6 +102,14 @@ int main()
 	do
 		{
 			cout << "\nSISTEMA DE RANKING - MENU\n";
+			cout << "1. Insertar/Actualizar jugador\n";
+			cout << "2. Buscar jugador\n";
+			cout << "3. Mostrar top N jugadores\n";
+			cout << "4. Salir\n";
+			cout << "Seleccione una opcion: ";
+			cin>>opcion;
+
+			
 		}
 
 }
